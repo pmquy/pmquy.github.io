@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, CloseOutlined, CodeOutlined, Facebook, FeedOutlined, FormatQuote, GitHub, HeadsetMicOutlined, HomeOutlined, Instagram, LinkedIn, LinkOutlined, ListOutlined, MailOutline, MenuOutlined, Person2Outlined, PhoneAndroidOutlined, PhotoLibraryOutlined, SentimentSatisfiedOutlined, X, YouTube } from '@mui/icons-material';
+import { ArrowRight, CloseOutlined, CodeOutlined, Facebook, FeedOutlined, FormatQuote, GitHub, HeadsetMicOutlined, HomeOutlined, LinkedIn, LinkOutlined, ListOutlined, MailOutline, MenuOutlined, Person2Outlined, PhoneAndroidOutlined, PhotoLibraryOutlined, SentimentSatisfiedOutlined, X, YouTube } from '@mui/icons-material';
 import Link from 'next/link';
 import { HTMLProps, useEffect, useRef, useState } from 'react';
 
@@ -19,9 +19,9 @@ function Wrapper({ children, className }: HTMLProps<HTMLDivElement>) {
           ref.current!.style.transform = 'translateY(0)'
         }
       })
-    }, { threshold: 0.5, rootMargin: '-200px' })
+    }, { threshold: 0.1, rootMargin: '-50px' })
 
-    if(ref.current) {
+    if (ref.current) {
       observer.observe(ref.current)
     }
     return () => {
@@ -37,7 +37,7 @@ function Wrapper({ children, className }: HTMLProps<HTMLDivElement>) {
 
 function Home() {
 
-  const data = ['Developer', 'Freelancer', 'Photographer']
+  const data = ['Developer', 'Student', 'Freelancer',]
   const [text, setText] = useState('')
   const [index, setIndex] = useState(0)
   const [flag, setFlag] = useState(true)
@@ -77,7 +77,7 @@ function Home() {
 
   return <div className='h-screen p-5 flex flex-col justify-center gap-5' style={{ backgroundImage: 'url(https://themewagon.github.io/iPortfolio/assets/img/hero-bg.jpg)', backgroundPosition: 'center', backgroundSize: 'cover', backgroundColor: 'rgba(0,0,0,0.7)' }}>
     <div className='font-bold text-5xl'>Pham Minh Quy</div>
-    <div className='text-2xl'>I'm <span style={{ textDecorationColor: "var(--primary)" }} className='underline underline-offset-8'>{text}</span><span ref={eRef} className='animate-pulse'>|</span></div>
+    <div className='text-2xl'>I&apos;m <span style={{ textDecorationColor: "var(--primary)" }} className='underline underline-offset-8'>{text}</span><span ref={eRef} className='animate-pulse'>&#124;</span></div>
   </div>
 }
 
@@ -85,13 +85,13 @@ function About() {
   return <div>
     <div className='bg-white text-black px-5 py-16 flex flex-col gap-10'>
       <Wrapper><div className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>About</div></Wrapper>
-      <Wrapper><div className='text-gray-800'>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</div></Wrapper>
+      <Wrapper><div className='text-gray-800'>I&#39;m Pham Minh Quy, a full-stack developer with a passion for creating innovative and user-friendly applications. My goal is to build high-quality software that solves real-world problems and enhances user experiences.</div></Wrapper>
       <Wrapper>
         <div className='flex gap-10 max-lg:flex-col'>
           <img width={350} className='m-auto' src={"https://themewagon.github.io/iPortfolio/assets/img/my-profile-img.jpg"} alt=''></img>
           <div className='flex flex-col gap-5'>
             <div className='text-2xl font-bold'>Fullstack developer</div>
-            <div className='text-gray-800'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+            <div className='text-gray-800'>A Full Stack Developer possesses comprehensive skills encompassing both front-end (user interface development) and back-end (logic and database development).</div>
             <div className='grid-cols-2 gap-5 grid max-sm:grid-cols-1'>
               <div className='flex gap-2'>
                 <ArrowRight style={{ color: 'var(--primary)' }} />
@@ -106,12 +106,12 @@ function About() {
               <div className='flex gap-2'>
                 <ArrowRight style={{ color: 'var(--primary)' }} />
                 <div className='font-semibold'>Website:</div>
-                <div>http://pmquy.github.io.com</div>
+                <Link href='https://pmquy.github.io'>https://pmquy.github.io</Link>
               </div>
               <div className='flex gap-2'>
                 <ArrowRight style={{ color: 'var(--primary)' }} />
                 <div className='font-semibold'>Degree:</div>
-                <div>Master</div>
+                <div>Bachelor</div>
               </div>
               <div className='flex gap-2'>
                 <ArrowRight style={{ color: 'var(--primary)' }} />
@@ -136,7 +136,7 @@ function About() {
 
 
             </div>
-            <div className='text-gray-800'>Officiis eligendi itaque labore et dolorum mollitia officiis optio vero. Quisquam sunt adipisci omnis et ut. Nulla accusantium dolor incidunt officia tempore. Et eius omnis. Cupiditate ut dicta maxime officiis quidem quia. Sed et consectetur qui quia repellendus itaque neque.</div>
+            <div className='text-gray-800'>I&#39;m a highly motivated and results-oriented individual with a strong work ethic and a collaborative spirit. I&#39;m always eager to learn new technologies and expand my skillset. I&#39;m currently available for freelance work. Feel free to contact me to discuss your project needs.</div>
           </div>
         </div>
       </Wrapper>
@@ -175,60 +175,60 @@ function About() {
     </div>
     <div className='bg-[#f4fafd] text-black px-5 py-16 flex flex-col gap-10'>
       <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Skills</Wrapper>
-      <Wrapper className='text-gray-800'>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</Wrapper>
+      <Wrapper className='text-gray-800'>My experience in developing and maintaining scalable web applications using React, Node.js, and Docker aligns perfectly with the requirements outlined in the job description.  My proficiency in these technologies, combined with my strong problem-solving skills, allows me to efficiently deliver high-quality software solutions.</Wrapper>
       <Wrapper className='grid grid-cols-2 max-md:grid-cols-1 text-sm gap-5'>
         <div className='flex flex-col gap-2'>
           <div className='flex justify-between'>
             <div>Frontend</div>
-            <div>80%</div>
+            <div>70%</div>
           </div>
           <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[80%]'></div>
+            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
           </div>
         </div>
         <div className='flex flex-col gap-2'>
           <div className='flex justify-between'>
             <div>Backend</div>
-            <div>80%</div>
+            <div>70%</div>
           </div>
           <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[80%]'></div>
+            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
           </div>
         </div>
         <div className='flex flex-col gap-2'>
           <div className='flex justify-between'>
             <div>Database</div>
-            <div>80%</div>
+            <div>70%</div>
           </div>
           <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[80%]'></div>
+            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
           </div>
         </div>
         <div className='flex flex-col gap-2'>
           <div className='flex justify-between'>
             <div>Docker</div>
-            <div>80%</div>
+            <div>70%</div>
           </div>
           <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[80%]'></div>
+            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
           </div>
         </div>
         <div className='flex flex-col gap-2'>
           <div className='flex justify-between'>
-            <div>System Design</div>
-            <div>80%</div>
+            <div>Network</div>
+            <div>70%</div>
           </div>
           <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[80%]'></div>
+            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
           </div>
         </div>
         <div className='flex flex-col gap-2'>
           <div className='flex justify-between'>
-            <div>AWS</div>
-            <div>80%</div>
+            <div>Problem Solving</div>
+            <div>70%</div>
           </div>
           <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[80%]'></div>
+            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
           </div>
         </div>
       </Wrapper>
@@ -239,55 +239,56 @@ function About() {
 function Resume() {
   return <div className='bg-white text-black px-5 py-16 flex flex-col gap-10'>
     <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Resume</Wrapper>
-    <Wrapper className='text-gray-800'>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</Wrapper>
+    <Wrapper className='text-gray-800'>Here is a brief overview of my professional experience and education background</Wrapper>
 
     <div className='flex gap-5 max-md:flex-col'>
 
       <div className='flex flex-col gap-5 basis-1/2'>
-        <Wrapper className='text-2xl font-semibold'>Summary</Wrapper>
-        <div className='flex flex-col gap-3 pl-6 border-l-2 border-l-[#149ddd] relative'>
-          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Brandon Johnson</div>
-          <div className=' italic'>Innovative and deadline-driven Graphic Designer with 3+ years of experience designing and developing user-centered digital/print marketing material from initial concept to final, polished deliverable.</div>
-          <li>Portland par 127,Orlando, FL</li>
-          <li>(123) 456-7891</li>
-          <li>alice.barkley@example.com</li>
-        </div>
+        <div className='text-2xl font-semibold'>Summary</div>
+        <Wrapper className='flex flex-col gap-3 pl-6 border-l-2 border-l-[#149ddd] relative'>
+          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Pham Minh Quy</div>
+          <div className=' italic'>A passionate and dedicated full-stack developer with a strong foundation in both front-end and back-end technologies. I am committed to delivering high-quality software solutions and continuously improving my skills.</div>
+          <li>Cau Giay, Ha Noi, Viet Nam</li>
+          <li>(+84) 971 621 458</li>
+          <li>pmquy204@gmail.com</li>
+        </Wrapper>
 
-        <Wrapper className='text-2xl font-semibold'>Education</Wrapper>
+        <div className='text-2xl font-semibold'>Education</div>
 
-        <div className='flex flex-col gap-3 pl-6 border-l-2 border-l-[#149ddd] relative'>
-          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Master of Fine Arts & Graphic Design</div>
-          <div className='ml-4 font-semibold text-sm'>2015 - 2016</div>
-          <div className=' italic'>Rochester Institute of Technology, Rochester, NY</div>
-          <div>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatum qui ut dignissimos deleniti nerada porti sand markend</div>
-          <div className='py-4' />
-          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Bachelor of Fine Arts & Graphic Design</div>
-          <div className='ml-4 font-semibold text-sm'>2010 - 2014</div>
-          <div className=' italic'>Rochester Institute of Technology, Rochester, NY</div>
-          <div>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</div>
-        </div>
+        <Wrapper className='flex flex-col gap-3 pl-6 border-l-2 border-l-[#149ddd] relative'>
+          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Bachelor Of Information Technology</div>
+          <div className='ml-4 font-semibold text-sm'>2022 - Present</div>
+          <div className=' italic'>University Of Engineering And Technology, VNU, Ha Noi</div>
+          <div>Studying at UET has given me a strong foundation in IT. The curriculum covers both theory and practice, and the faculty is supportive. Through projects, I&#39;ve gained hands-on experience in software development and problem-solving, preparing me for the tech industry.</div>
+          {/* <div className='py-4' />
+          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Bachelor Of Information Technology</div>
+          <div className='ml-4 font-semibold text-sm'>2022 - Now</div>
+          <div className=' italic'>University Of Engineering And Technology, VNU, Ha Noi</div>
+          <div>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</div> */}
+        </Wrapper>
       </div>
 
       <div className='flex flex-col gap-5 basis-1/2'>
 
-        <Wrapper className='text-2xl font-semibold'>Professional Experience</Wrapper>
-        <div className='flex flex-col gap-3 pl-6 border-l-2 border-l-[#149ddd] relative'>
-          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Senior graphic design specialist</div>
-          <div className='ml-4 font-semibold text-sm'>2019 - Present</div>
-          <div className=' italic'>Experion, New York, NY</div>
-          <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
-          <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project.</li>
-          <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
-          <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
-          <div className='py-4' />
+        <div className='text-2xl font-semibold'>Professional Experience</div>
+        <Wrapper className='flex flex-col gap-3 pl-6 border-l-2 border-l-[#149ddd] relative'>
+          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Intern Fullstack Developer</div>
+          <div className='ml-4 font-semibold text-sm'>2024 - Present</div>
+          <div className=' italic'>Cau Giay, Ha Noi</div>
+          <li>Developed and maintained web applications using React and Node.js.</li>
+          <li>Collaborated with the design team to implement user-friendly interfaces.</li>
+          <li>Participated in code reviews and provided constructive feedback.</li>
+          <li>Assisted in the integration of RESTful APIs.</li>
+          <li>Debugged and resolved issues in existing applications.</li>
+          {/* <div className='py-4' />
           <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Graphic design specialist</div>
           <div className='ml-4 font-semibold text-sm'>2017 - 2018</div>
           <div className=' italic'>Stepping Stone Advertising, New York, NY</div>
           <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
           <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
           <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-          <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
-        </div>
+          <li>Created 4+ design presentations and proposals a month for clients and account managers</li> */}
+        </Wrapper>
       </div>
 
     </div>
@@ -359,7 +360,7 @@ function Portfolio() {
 
   return <div className='bg-[#f4fafd] text-black px-5 py-16 flex flex-col gap-10'>
     <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Portfolio</Wrapper>
-    <Wrapper className='text-gray-800'>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</Wrapper>
+    <Wrapper className='text-gray-800'>Check out some of my recent projects below. You can filter the projects by category using the buttons.</Wrapper>
     <div className='flex gap-5 justify-center mt-4'>
       {["all", "app", "web", "product", "book"].map(e => <div key={e} onClick={() => setOption(e)} className={`cursor-pointer uppercase text-sm select-none ${option === e ? 'text-[#149ddd]' : 'text-gray-800 hover:text-[#149ddd]'}`}>{e}</div>)}
     </div>
@@ -421,7 +422,7 @@ function Services() {
 
   return <div className='bg-white text-black px-5 py-16 flex flex-col gap-10'>
     <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Services</Wrapper>
-    <Wrapper className='text-gray-800'>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</Wrapper>
+    <Wrapper className='text-gray-800'>I offer a wide range of services to meet your needs. Whether you need a new website, a system design, cloud computing solutions, DevOps services, backend development, or frontend development, I have the skills and experience to deliver high-quality results. My goal is to provide innovative and efficient solutions that help you achieve your business objectives.</Wrapper>
 
     <Wrapper className='grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-10'>
       {
@@ -446,50 +447,50 @@ function Testimonials() {
     {
       name: "Saul Goodman",
       position: "Ceo & Founder",
-      description: "Magnam dol ores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate.",
+      description: "Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate.",
       image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-1.jpg"
     },
     {
       name: "Sara Wilsson",
       position: "Designer",
-      description: "Magnam dol ores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-1.jpg"
+      description: "Aut maiores voluptates amet et quis praesentium qui senda para. Eos ipsa est voluptates. Magnam dolores commodi suscipit.",
+      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-2.jpg"
     },
     {
       name: "Jena Karlis",
       position: "Store Owner",
-      description: "Magnam dol ores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-1.jpg"
+      description: "Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.",
+      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-3.jpg"
     },
     {
       name: "Matt Brandon",
       position: "Freelancer",
-      description: "Magnam dol ores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-1.jpg"
+      description: "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore.",
+      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-4.jpg"
     },
     {
       name: "John Larson",
       position: "Entrepreneur",
-      description: "Magnam dol ores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-1.jpg"
+      description: "Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.",
+      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-5.jpg"
     },
     {
       name: "Pamela Adam",
       position: "Teacher",
-      description: "Magnam dol ores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-1.jpg"
+      description: "Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.",
+      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-6.jpg"
     },
     {
       name: "Henry Smith",
       position: "Designer",
-      description: "Magnam dol ores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-1.jpg"
-    }
+      description: "Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.",
+      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-7.jpg"
+    },
   ]
 
   return <div className='bg-[#f4fafd] text-black px-5 py-16 flex flex-col gap-10'>
     <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Testimonials</Wrapper>
-    <Wrapper className='text-gray-800'>Magnam dol ores commodi suscipit. Necessitatibus fkdjs.</Wrapper>
+    <Wrapper className='text-gray-800'>Here are some testimonials from my clients and colleagues:</Wrapper>
     <Wrapper className='flex gap-10 overflow-x-auto pb-10'>
       {data.map((e, i) => (
         <div key={i} className='flex flex-col shrink-0 gap-2 w-96 items-center'>
@@ -511,10 +512,11 @@ function Testimonials() {
 function Contact() {
   return <div className='bg-white text-black px-5 py-16 flex flex-col gap-10'>
     <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Contact</Wrapper>
-    <Wrapper className='text-gray-800'>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</Wrapper>
+    <Wrapper className='text-gray-800'></Wrapper>
+    Feel free to reach out to me for any inquiries or collaborations. I&#39;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision. You can contact me through the following methods:
     <div className='grid grid-cols-2 max-md:grid-cols-1 gap-10'>
 
-      <div className='flex flex-col gap-10 p-10 shadow-lg'>
+      <Wrapper className='flex flex-col gap-10 p-10 shadow-lg'>
         <div className='text-2xl font-bold'>Contact Me</div>
         <div className='flex flex-col gap-5'>
           <div className='flex gap-5 group'>
@@ -545,9 +547,9 @@ function Contact() {
             </div>
           </div>
         </div>
-      </div>
+      </Wrapper>
 
-      <div className='flex flex-col gap-10 p-10 shadow-lg'>
+      <Wrapper className='flex flex-col gap-10 p-10 shadow-lg'>
         <div className='text-2xl font-bold'>Message Me</div>
         <div className='flex flex-col gap-5'>
           <input className='border-2 border-primary p-2 rounded-md' placeholder='Name'></input>
@@ -555,7 +557,7 @@ function Contact() {
           <textarea className='border-2 border-primary p-2 rounded-md h-40' placeholder='Message'></textarea>
           <button className='bg-primary text-white p-2 rounded-md hover:bg-opacity-80'>Send Message</button>
         </div>
-      </div>
+      </Wrapper>
     </div>
   </div>
 }
@@ -574,12 +576,12 @@ function NavBar() {
           <div className='icon'>
             <X fontSize="small" />
           </div>
-          <div className='icon'>
+          <Link href={'https://www.facebook.com/phamminhquy.204/'} className='icon'>
             <Facebook fontSize="small" />
-          </div>
-          <div className='icon'>
-            <Instagram fontSize="small" />
-          </div>
+          </Link>
+          <Link href={"https://github.com/pmquy"} className='icon'>
+            <GitHub fontSize="small" />
+          </Link>
           <div className='icon'>
             <YouTube fontSize="small" />
           </div>
@@ -589,31 +591,31 @@ function NavBar() {
         </div>
         <div className='flex gap-2 items-center'>
           <HomeOutlined style={{ color: 'var(--primary)' }} />
-          <Link href={'#home'}>Home</Link>
+          <Link onClick={() => setOpen(false)} href={'#home'}>Home</Link>
         </div>
         <div className='flex gap-2 items-center'>
           <Person2Outlined style={{ color: 'var(--primary)' }} />
-          <Link href={'#about'}>About</Link>
+          <Link onClick={() => setOpen(false)} href={'#about'}>About</Link>
         </div>
         <div className='flex gap-2 items-center'>
           <FeedOutlined style={{ color: 'var(--primary)' }} />
-          <Link href={'#resume'}>Resume</Link>
+          <Link onClick={() => setOpen(false)} href={'#resume'}>Resume</Link>
         </div>
         <div className='flex gap-2 items-center'>
           <PhotoLibraryOutlined style={{ color: 'var(--primary)' }} />
-          <Link href={'#portfolio'}>Portfolio</Link>
+          <Link onClick={() => setOpen(false)} href={'#portfolio'}>Portfolio</Link>
         </div>
         <div className='flex gap-2 items-center'>
           <ListOutlined style={{ color: 'var(--primary)' }} />
-          <Link href={'#services'}>Services</Link>
+          <Link onClick={() => setOpen(false)} href={'#services'}>Services</Link>
         </div>
         <div className='flex gap-2 items-center'>
           <SentimentSatisfiedOutlined style={{ color: 'var(--primary)' }} />
-          <Link href={'#testimonials'}>Testimonials</Link>
+          <Link onClick={() => setOpen(false)} href={'#testimonials'}>Testimonials</Link>
         </div>
         <div className='flex gap-2 items-center'>
           <MailOutline style={{ color: 'var(--primary)' }} />
-          <Link href={'#contact'}>Contact</Link>
+          <Link onClick={() => setOpen(false)} href={'#contact'}>Contact</Link>
         </div>
       </div>
     </div>
@@ -624,7 +626,7 @@ export default function Page() {
 
   return <div className="flex">
 
-    <NavBar/>
+    <NavBar />
 
     <div className="w-full overflow-hidden">
       <div id='home'>
