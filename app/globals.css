@@ -5,12 +5,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #149ddd;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #040b14;
     --foreground: #ededed;
+    --primary: #149ddd;
   }
 }
 
@@ -18,4 +20,21 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.icon {
+  width: 40px;
+  height: 40px;
+  align-content: center;
+  text-align: center;
+  cursor: pointer;
+  background-color: color-mix(in srgb, var(--foreground), transparent 90%);
+  border-radius: 9999px;
+  transition-property: background-color;
+  transition-duration: 0.2s;
+}
+
+.icon:hover {
+  background-color: var(--primary);
 }
