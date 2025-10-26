@@ -1,43 +1,72 @@
 "use client";
 
-import { ArrowRight, CloseOutlined, CodeOutlined, Facebook, FeedOutlined, FormatQuote, GitHub, HeadsetMicOutlined, HomeOutlined, LinkedIn, LinkOutlined, ListOutlined, MailOutline, MenuOutlined, Person2Outlined, PhoneAndroidOutlined, PhotoLibraryOutlined, SentimentSatisfiedOutlined, X, YouTube } from '@mui/icons-material';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import {
+  CloseOutlined,
+  CloudOutlined,
+  Code,
+  Download,
+  Facebook,
+  FeedOutlined,
+  GitHub,
+  HomeOutlined,
+  LinkedIn,
+  ListOutlined,
+  MailOutline,
+  MenuOutlined,
+  OpenInNew,
+  Palette,
+  Person2Outlined,
+  PhoneAndroidOutlined,
+  PhotoLibraryOutlined,
+  SchoolOutlined,
+  Smartphone,
+  Storage,
+  WorkOutline,
+  YouTube
+} from '@mui/icons-material';
+import Image from 'next/image';
 import Link from 'next/link';
-import { HTMLProps, useEffect, useRef, useState } from 'react';
+import { HTMLProps, useEffect, useMemo, useRef, useState } from 'react';
 
 function Wrapper({ children, className }: HTMLProps<HTMLDivElement>) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    ref.current!.style.opacity = '0'
-    ref.current!.style.transform = 'translateY(50px)'
-    ref.current!.style.transition = 'all 1s'
+    const element = ref.current;
+    if (!element) return;
+    
+    element.style.opacity = '0'
+    element.style.transform = 'translateY(50px)'
+    element.style.transition = 'all 1s'
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          ref.current!.style.opacity = '1'
-          ref.current!.style.transform = 'translateY(0)'
+        if (entry.isIntersecting && element) {
+          element.style.opacity = '1'
+          element.style.transform = 'translateY(0)'
         }
       })
     }, { threshold: 0.1, rootMargin: '-50px' })
 
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
+    observer.observe(element)
+    
     return () => {
-      if (ref.current) observer.unobserve(ref.current)
+      observer.unobserve(element)
       observer.disconnect()
     }
-  }, [children])
+  }, [])
 
   return <div className={className} ref={ref}>
     {children}
   </div>
 }
 
+// Hero Section
 function Home() {
-
-  const data = ['Developer', 'Student', 'Freelancer',]
+  const data = useMemo(() => ['Full Stack Developer', 'Problem Solver', 'Tech Enthusiast'], [])
   const [text, setText] = useState('')
   const [index, setIndex] = useState(0)
   const [flag, setFlag] = useState(true)
@@ -58,7 +87,7 @@ function Home() {
             eRef.current?.classList.remove('animate-pulse')
           }, 2000)
         }
-      }, 200)
+      }, 100)
     } else {
       t = setInterval(() => {
         ref.current--
@@ -70,586 +99,594 @@ function Home() {
             setFlag(true)
           }, 100)
         }
-      }, 100)
+      }, 50)
     }
-  }, [index, flag])
+    return () => clearInterval(t)
+  }, [index, flag, data])
 
+  return (
+    <div className='min-h-screen flex items-center justify-center relative overflow-hidden bg-background'>
+      {/* Animated pulsing background - increased visibility */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none opacity-60'>
+        <div className='absolute top-0 left-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '4s' }}></div>
+        <div className='absolute bottom-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '6s', animationDelay: '2s' }}></div>
+        <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/15 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
+      </div>
 
-  return <div className='h-screen p-5 flex flex-col justify-center gap-5' style={{ backgroundImage: 'url(https://themewagon.github.io/iPortfolio/assets/img/hero-bg.jpg)', backgroundPosition: 'center', backgroundSize: 'cover', backgroundColor: 'rgba(0,0,0,0.7)' }}>
-    <div className='font-bold text-5xl'>Pham Minh Quy</div>
-    <div className='text-2xl'>I&apos;m <span style={{ textDecorationColor: "var(--primary)" }} className='underline underline-offset-8'>{text}</span><span ref={eRef} className='animate-pulse'>&#124;</span></div>
-  </div>
+      <div className='max-w-5xl mx-auto px-6 py-20 relative z-10'>
+        <div className='space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-1000'>
+          <div className='space-y-3'>
+            <h1 className='text-5xl md:text-7xl font-bold tracking-tight'>
+              Pham Minh Quy
+            </h1>
+            <div className='h-1 w-20 bg-primary rounded-full'></div>
+          </div>
+
+          <div className='text-2xl md:text-3xl font-light text-muted-foreground'>
+            <span className='text-primary font-medium'>
+              {text}
+              <span ref={eRef} className='text-primary'>|</span>
+            </span>
+          </div>
+
+          <p className='text-muted-foreground text-base max-w-2xl leading-relaxed'>
+            Computer Science Student | Full Stack Developer
+          </p>
+
+          <div className='flex flex-wrap gap-3 pt-6'>
+            <Button asChild size="default" className='shadow-sm hover:shadow-md transition-shadow'>
+              <Link href={'#contact'}>
+                <MailOutline className='mr-2' fontSize='small' />
+                Contact Me
+              </Link>
+            </Button>
+            <Button asChild size="default" variant="outline" className='shadow-sm hover:shadow-md transition-shadow'>
+              <a href='/resume.pdf' download>
+                <Download className='mr-2' fontSize='small' />
+                Download CV
+              </a>
+            </Button>
+          </div>
+
+          <div className='flex gap-2 pt-2'>
+            {[
+              { href: 'https://github.com/pmquy', icon: <GitHub fontSize='small' /> },
+              { href: 'https://www.facebook.com/lokikurri/', icon: <Facebook fontSize='small' /> },
+              { href: '#', icon: <LinkedIn fontSize='small' /> },
+              { href: '#', icon: <YouTube fontSize='small' /> },
+            ].map((social, i) => (
+              <Button key={i} asChild variant="ghost" size="icon" className='hover:bg-primary/10 transition-colors'>
+                <Link href={social.href}>
+                  {social.icon}
+                </Link>
+              </Button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
+// About Section
 function About() {
-  return <div>
-    <div className='bg-white text-black px-5 py-16 flex flex-col gap-10'>
-      <Wrapper><div className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>About</div></Wrapper>
-      <Wrapper><div className='text-gray-800'>I&#39;m Pham Minh Quy, a full-stack developer with a passion for creating innovative and user-friendly applications. My goal is to build high-quality software that solves real-world problems and enhances user experiences.</div></Wrapper>
-      <Wrapper>
-        <div className='flex gap-10 max-lg:flex-col'>
-          <img width={350} className='m-auto' src={"https://themewagon.github.io/iPortfolio/assets/img/my-profile-img.jpg"} alt=''></img>
-          <div className='flex flex-col gap-5'>
-            <div className='text-2xl font-bold'>Fullstack developer</div>
-            <div className='text-gray-800'>A Full Stack Developer possesses comprehensive skills encompassing both front-end (user interface development) and back-end (logic and database development).</div>
-            <div className='grid-cols-2 gap-5 grid max-sm:grid-cols-1'>
-              <div className='flex gap-2'>
-                <ArrowRight style={{ color: 'var(--primary)' }} />
-                <div className='font-semibold'>Birthday:</div>
-                <div>30 Dec 2004</div>
-              </div>
-              <div className='flex gap-2'>
-                <ArrowRight style={{ color: 'var(--primary)' }} />
-                <div className='font-semibold'>Age:</div>
-                <div>{(new Date(Date.now())).getFullYear() - 2004}</div>
-              </div>
-              <div className='flex gap-2'>
-                <ArrowRight style={{ color: 'var(--primary)' }} />
-                <div className='font-semibold'>Website:</div>
-                <Link href='https://pmquy.github.io'>https://pmquy.github.io</Link>
-              </div>
-              <div className='flex gap-2'>
-                <ArrowRight style={{ color: 'var(--primary)' }} />
-                <div className='font-semibold'>Degree:</div>
-                <div>Bachelor</div>
-              </div>
-              <div className='flex gap-2'>
-                <ArrowRight style={{ color: 'var(--primary)' }} />
-                <div className='font-semibold'>Phone:</div>
-                <div>0971621458</div>
-              </div>
-              <div className='flex gap-2'>
-                <ArrowRight style={{ color: 'var(--primary)' }} />
-                <div className='font-semibold'>Email:</div>
-                <div>pmquy204@gmail.com</div>
-              </div>
-              <div className='flex gap-2'>
-                <ArrowRight style={{ color: 'var(--primary)' }} />
-                <div className='font-semibold'>City:</div>
-                <div>Cau Giay, Ha Noi, Viet Nam</div>
-              </div>
-              <div className='flex gap-2'>
-                <ArrowRight style={{ color: 'var(--primary)' }} />
-                <div className='font-semibold'>Freelance:</div>
-                <div>Available</div>
+  const skills = [
+    'TypeScript & JavaScript',
+    'Go & Gin',
+    'React & Next.js/Vite & Tailwind CSS',
+    'Node.js & Express & NestJS',
+    'PostgreSQL & MongoDB',
+    'Docker & Kubernetes',
+    'Git & GitHub',
+    'REST & GraphQL APIs',
+    'AWS & Cloud Services',
+  ]
+
+  return (
+    <div className='bg-background relative overflow-hidden'>
+      {/* Animated background - increased visibility */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none opacity-50'>
+        <div className='absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '5s' }}></div>
+        <div className='absolute bottom-40 left-20 w-80 h-80 bg-primary/15 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '7s', animationDelay: '2s' }}></div>
+      </div>
+      
+      <div className='max-w-5xl mx-auto px-6 py-20 relative z-10'>
+        {/* Section Header */}
+        <Wrapper className='mb-12'>
+          <h2 className='text-3xl font-bold mb-2'>About</h2>
+          <p className='text-muted-foreground'>
+            Full-stack developer with expertise in building scalable web applications
+          </p>
+        </Wrapper>
+
+        {/* Main Content */}
+        <Wrapper>
+          <div className='grid lg:grid-cols-3 gap-8 items-start mb-12'>
+            {/* Profile Image */}
+            <div className='relative w-full h-auto aspect-square group'>
+              <div className='absolute inset-0 bg-linear-to-br from-primary/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500'></div>
+              <Image 
+                src="https://themewagon.github.io/iPortfolio/assets/img/my-profile-img.jpg" 
+                alt="Profile" 
+                fill
+                className='object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300'
+                sizes="(max-width: 1024px) 100vw, 33vw"
+                priority
+              />
+            </div>
+
+            {/* Info - Clean Layout */}
+            <div className='lg:col-span-2 space-y-6'>
+              <div>
+                <h3 className='text-xl font-bold mb-3'>Full Stack Developer</h3>
+                <p className='text-muted-foreground leading-relaxed'>
+                  Comprehensive skills in both front-end and back-end development, creating seamless end-to-end solutions with modern technologies.
+                </p>
               </div>
 
+              <div className='grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm'>
+                {[
+                  { label: 'Birthday', value: '30 Dec 2004' },
+                  { label: 'Age', value: `${new Date().getFullYear() - 2004}` },
+                  { label: 'Phone', value: '0971621458' },
+                  { label: 'Email', value: 'pmquy204@gmail.com' },
+                  { label: 'Degree', value: 'Bachelor of IT' },
+                  { label: 'Location', value: 'Ha Noi, Vietnam' },
+                ].map((item, i) => (
+                  <div key={i} className='flex items-baseline gap-2'>
+                    <span className='text-muted-foreground font-medium min-w-20'>{item.label}:</span>
+                    <span className='text-foreground'>{item.value}</span>
+                  </div>
+                ))}
+                <div className='flex items-baseline gap-2'>
+                  <span className='text-muted-foreground font-medium min-w-20'>Freelance:</span>
+                  <Badge variant="secondary" className='text-xs px-2 py-0.5 bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 border-green-200 dark:border-green-800'>Available</Badge>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Wrapper>
 
-            </div>
-            <div className='text-gray-800'>I&#39;m a highly motivated and results-oriented individual with a strong work ethic and a collaborative spirit. I&#39;m always eager to learn new technologies and expand my skillset. I&#39;m currently available for freelance work. Feel free to contact me to discuss your project needs.</div>
-          </div>
-        </div>
-      </Wrapper>
-      <Wrapper>
-        <div className='mt-32 justify-center gap-10 grid grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1 m-auto'>
-          <div className='flex gap-5'>
-            <SentimentSatisfiedOutlined sx={{ fontSize: "50px" }} style={{ color: 'var(--primary)' }} />
-            <div>
-              <div className='text-4xl font-bold'>200</div>
-              <div className='text-gray-600 text-sm mt-3'><b>Happy Clients</b> consequuntur quae</div>
+        {/* Skills - Minimalist */}
+        <Wrapper>
+          <div className='border-t pt-8'>
+            <h3 className='text-lg font-bold mb-4'>Technical Skills</h3>
+            <div className='flex flex-wrap gap-2'>
+              {skills.map((skill, i) => (
+                <Badge key={i} variant="outline" className='px-3 py-1 text-sm font-normal hover:bg-primary/5 transition-colors'>
+                  {skill}
+                </Badge>
+              ))}
             </div>
           </div>
-          <div className='flex gap-5'>
-            <CodeOutlined sx={{ fontSize: "50px" }} style={{ color: 'var(--primary)' }} />
-            <div>
-              <div className='text-4xl font-bold'>12</div>
-              <div className='text-gray-600 text-sm mt-3'><b>Projects</b> adipisci atque cum quia aut</div>
-            </div>
-          </div>
-          <div className='flex gap-5'>
-            <HeadsetMicOutlined sx={{ fontSize: "50px" }} style={{ color: 'var(--primary)' }} />
-            <div>
-              <div className='text-4xl font-bold'>100</div>
-              <div className='text-gray-600 text-sm mt-3'><b>Hours Of Support</b> aut commodi quaerat</div>
-            </div>
-          </div>
-          <div className='flex gap-5'>
-            <SentimentSatisfiedOutlined sx={{ fontSize: "50px" }} style={{ color: 'var(--primary)' }} />
-            <div>
-              <div className='text-4xl font-bold'>10</div>
-              <div className='text-gray-600 text-sm mt-3'><b>Hard Workers</b> rerum asperiores dolor</div>
-            </div>
-          </div>
-        </div>
-      </Wrapper>
+        </Wrapper>
+      </div>
     </div>
-    <div className='bg-[#f4fafd] text-black px-5 py-16 flex flex-col gap-10'>
-      <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Skills</Wrapper>
-      <Wrapper className='text-gray-800'>My experience in developing and maintaining scalable web applications using React, Node.js, and Docker aligns perfectly with the requirements outlined in the job description.  My proficiency in these technologies, combined with my strong problem-solving skills, allows me to efficiently deliver high-quality software solutions.</Wrapper>
-      <Wrapper className='grid grid-cols-2 max-md:grid-cols-1 text-sm gap-5'>
-        <div className='flex flex-col gap-2'>
-          <div className='flex justify-between'>
-            <div>Frontend</div>
-            <div>70%</div>
-          </div>
-          <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
-          </div>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <div className='flex justify-between'>
-            <div>Backend</div>
-            <div>70%</div>
-          </div>
-          <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
-          </div>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <div className='flex justify-between'>
-            <div>Database</div>
-            <div>70%</div>
-          </div>
-          <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
-          </div>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <div className='flex justify-between'>
-            <div>Docker</div>
-            <div>70%</div>
-          </div>
-          <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
-          </div>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <div className='flex justify-between'>
-            <div>Network</div>
-            <div>70%</div>
-          </div>
-          <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
-          </div>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <div className='flex justify-between'>
-            <div>Problem Solving</div>
-            <div>70%</div>
-          </div>
-          <div className="relative h-2 bg-gray-400">
-            <div className='h-full absolute bg-[#149ddd] w-[70%]'></div>
-          </div>
-        </div>
-      </Wrapper>
-    </div>
-  </div>
+  )
 }
 
+// Resume Section
 function Resume() {
-  return <div className='bg-white text-black px-5 py-16 flex flex-col gap-10'>
-    <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Resume</Wrapper>
-    <Wrapper className='text-gray-800'>Here is a brief overview of my professional experience and education background</Wrapper>
-
-    <div className='flex gap-5 max-md:flex-col'>
-
-      <div className='flex flex-col gap-5 basis-1/2'>
-        <div className='text-2xl font-semibold'>Summary</div>
-        <Wrapper className='flex flex-col gap-3 pl-6 border-l-2 border-l-[#149ddd] relative'>
-          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Pham Minh Quy</div>
-          <div className=' italic'>A passionate and dedicated full-stack developer with a strong foundation in both front-end and back-end technologies. I am committed to delivering high-quality software solutions and continuously improving my skills.</div>
-          <li>Cau Giay, Ha Noi, Viet Nam</li>
-          <li>(+84) 971 621 458</li>
-          <li>pmquy204@gmail.com</li>
-        </Wrapper>
-
-        <div className='text-2xl font-semibold'>Education</div>
-
-        <Wrapper className='flex flex-col gap-3 pl-6 border-l-2 border-l-[#149ddd] relative'>
-          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Bachelor Of Information Technology</div>
-          <div className='ml-4 font-semibold text-sm'>2022 - Present</div>
-          <div className=' italic'>University Of Engineering And Technology, VNU, Ha Noi</div>
-          <div>Studying at UET has given me a strong foundation in IT. The curriculum covers both theory and practice, and the faculty is supportive. Through projects, I&#39;ve gained hands-on experience in software development and problem-solving, preparing me for the tech industry.</div>
-          {/* <div className='py-4' />
-          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Bachelor Of Information Technology</div>
-          <div className='ml-4 font-semibold text-sm'>2022 - Now</div>
-          <div className=' italic'>University Of Engineering And Technology, VNU, Ha Noi</div>
-          <div>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</div> */}
-        </Wrapper>
+  return (
+    <div className='bg-background relative overflow-hidden'>
+      {/* Subtle background pattern with animation */}
+      <div className='absolute inset-0 opacity-[0.03]' style={{
+        backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)',
+        backgroundSize: '40px 40px'
+      }}></div>
+      
+      {/* Animated blobs */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none opacity-40'>
+        <div className='absolute top-40 left-40 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+        <div className='absolute bottom-20 right-40 w-72 h-72 bg-primary/15 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '8s' }}></div>
       </div>
-
-      <div className='flex flex-col gap-5 basis-1/2'>
-
-        <div className='text-2xl font-semibold'>Professional Experience</div>
-        <Wrapper className='flex flex-col gap-3 pl-6 border-l-2 border-l-[#149ddd] relative'>
-          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Intern Fullstack Developer</div>
-          <div className='ml-4 font-semibold text-sm'>2024 - Present</div>
-          <div className=' italic'>Cau Giay, Ha Noi</div>
-          <li>Developed and maintained web applications using React and Node.js.</li>
-          <li>Collaborated with the design team to implement user-friendly interfaces.</li>
-          <li>Participated in code reviews and provided constructive feedback.</li>
-          <li>Assisted in the integration of RESTful APIs.</li>
-          <li>Debugged and resolved issues in existing applications.</li>
-          {/* <div className='py-4' />
-          <div className="text-gray-600 text-xl"><div className='absolute rounded-full w-4 h-4 border-2 bg-white border-[#149ddd] left-0 -translate-x-1/2'></div>Graphic design specialist</div>
-          <div className='ml-4 font-semibold text-sm'>2017 - 2018</div>
-          <div className=' italic'>Stepping Stone Advertising, New York, NY</div>
-          <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
-          <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
-          <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-          <li>Created 4+ design presentations and proposals a month for clients and account managers</li> */}
+      
+      <div className='max-w-5xl mx-auto px-6 py-20 relative z-10'>
+        <Wrapper className='mb-12'>
+          <h2 className='text-3xl font-bold mb-2'>Resume</h2>
+          <p className='text-muted-foreground'>
+            My professional journey and academic background
+          </p>
         </Wrapper>
-      </div>
 
+        <div className='grid md:grid-cols-2 gap-12'>
+          {/* Left Column */}
+          <div className='space-y-8'>
+            <Wrapper>
+              <div>
+                <h3 className='text-lg font-bold mb-6 flex items-center gap-2'>
+                  <SchoolOutlined className='text-primary' fontSize='small' />
+                  Education
+                </h3>
+                <div className='border-l-2 border-primary pl-6'>
+                  <h4 className='font-bold mb-1'>Bachelor of Information Technology</h4>
+                  <p className='text-sm text-primary mb-2'>2022 - Present</p>
+                  <p className='text-sm text-muted-foreground mb-3'>
+                    University Of Engineering And Technology, VNU, Ha Noi
+                  </p>
+                  <p className='text-sm text-muted-foreground leading-relaxed'>
+                    Strong foundation in software development, algorithms, and system design. 
+                    Gained hands-on experience through various projects.
+                  </p>
+                </div>
+              </div>
+            </Wrapper>
+          </div>
+
+          {/* Right Column */}
+          <div className='space-y-8'>
+            <Wrapper>
+              <div>
+                <h3 className='text-lg font-bold mb-6 flex items-center gap-2'>
+                  <WorkOutline className='text-primary' fontSize='small' />
+                  Experience
+                </h3>
+                <div className='border-l-2 border-primary pl-6'>
+                  <h4 className='font-bold mb-1'>Intern Full Stack Developer</h4>
+                  <p className='text-sm text-primary mb-2'>2024 - Present</p>
+                  <p className='text-sm text-muted-foreground mb-3'>Cau Giay, Ha Noi</p>
+                  <ul className='space-y-1.5 text-sm text-muted-foreground'>
+                    <li>• Developed web applications using React and Node.js</li>
+                    <li>• Collaborated with design team for user-friendly interfaces</li>
+                    <li>• Participated in code reviews and provided feedback</li>
+                    <li>• Integrated RESTful APIs</li>
+                    <li>• Debugged and resolved application issues</li>
+                  </ul>
+                </div>
+              </div>
+            </Wrapper>
+          </div>
+        </div>
+      </div>
     </div>
-
-  </div>
+  )
 }
 
+// Portfolio Section  
 function Portfolio() {
-
   const [option, setOption] = useState('all')
 
   const data = [
     {
       type: "web",
       name: "Facebook Clone",
-      description: "The social network website",
+      description: "Social network website",
       thumbnail: "https://res.cloudinary.com/dsvduvzei/image/upload/v1731831389/demon-slayer-1920x1080-17629_hnyiew.jpg",
       link: "https://facebook-clone-git-dev-pmquys-projects.vercel.app/",
       github: "https://github.com/pmquy/facebook",
-
+      tags: ["React", "Node.js", "MongoDB"]
     },
     {
       type: "web",
       name: "Tieminnhatho",
-      description: "The shopping website",
+      description: "E-commerce platform",
       thumbnail: "https://res.cloudinary.com/dsvduvzei/image/upload/v1731831960/1935621_xuunuw.jpg",
       link: "https://www.tieminnhatho.com/",
       github: "https://github.com/pmquy/myshop",
-
+      tags: ["Next.js", "Tailwind", "PostgreSQL"]
     },
-    {
-      type: "app",
-      name: "App 1",
-      description: "App 1 description",
-      thumbnail: "https://res.cloudinary.com/dsvduvzei/image/upload/v1731831383/shinobu-kocho-1920x1080-19754_m7za5j.jpg",
-      link: "https://facebook-clone-git-dev-pmquys-projects.vercel.app/",
-      github: "https://github.com/pmquy/facebook",
-
-    },
-    {
-      type: "app",
-      name: "App 1",
-      description: "App 1 description",
-      thumbnail: "https://res.cloudinary.com/dsvduvzei/image/upload/v1731831389/demon-slayer-1920x1080-17629_hnyiew.jpg",
-      link: "https://facebook-clone-git-dev-pmquys-projects.vercel.app/",
-      github: "https://github.com/pmquy/facebook",
-
-    },
-    {
-      type: "app",
-      name: "App 1",
-      description: "App 1 description",
-      thumbnail: "https://res.cloudinary.com/dsvduvzei/image/upload/v1731831389/demon-slayer-1920x1080-17629_hnyiew.jpg",
-      link: "https://facebook-clone-git-dev-pmquys-projects.vercel.app/",
-      github: "https://github.com/pmquy/facebook",
-
-    }
   ]
 
-  const [list, setList] = useState(data)
+  const filteredList = option === 'all' ? data : data.filter(e => e.type === option)
 
-  useEffect(() => {
-    if (option === 'all') {
-      setList(data)
-    } else {
-      setList(data.filter(e => e.type === option))
-    }
-  }, [option])
+  return (
+    <div className='bg-background relative overflow-hidden'>
+      {/* Animated background elements */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none opacity-50'>
+        <div className='absolute top-10 left-1/4 w-80 h-80 bg-primary/20 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '7s' }}></div>
+        <div className='absolute bottom-10 right-1/4 w-72 h-72 bg-primary/15 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '5s', animationDelay: '1.5s' }}></div>
+      </div>
 
-  return <div className='bg-[#f4fafd] text-black px-5 py-16 flex flex-col gap-10'>
-    <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Portfolio</Wrapper>
-    <Wrapper className='text-gray-800'>Check out some of my recent projects below. You can filter the projects by category using the buttons.</Wrapper>
-    <div className='flex gap-5 justify-center mt-4'>
-      {["all", "app", "web", "product", "book"].map(e => <div key={e} onClick={() => setOption(e)} className={`cursor-pointer uppercase text-sm select-none ${option === e ? 'text-[#149ddd]' : 'text-gray-800 hover:text-[#149ddd]'}`}>{e}</div>)}
+      <div className='max-w-5xl mx-auto px-6 py-20 relative z-10'>
+        <Wrapper className='mb-12'>
+          <h2 className='text-3xl font-bold mb-2'>Portfolio</h2>
+          <p className='text-muted-foreground'>Selected projects and works</p>
+        </Wrapper>
+
+        {/* Filters */}
+        <Wrapper className='flex gap-2 mb-8 flex-wrap'>
+          {["all", "web", "app", "product"].map(filter => (
+            <Button
+              key={filter}
+              variant={option === filter ? "default" : "ghost"}
+              onClick={() => setOption(filter)}
+              className='capitalize text-sm transition-all'
+              size="sm"
+            >
+              {filter}
+            </Button>
+          ))}
+        </Wrapper>
+
+        {/* Projects Grid */}
+        <Wrapper className='grid md:grid-cols-2 gap-6'>
+          {filteredList.map((project, i) => (
+            <div key={i} className='group border rounded-lg overflow-hidden hover:shadow-lg transition-all bg-card hover:-translate-y-1 duration-300'>
+              <div className='relative overflow-hidden h-48 bg-muted'>
+                <Image 
+                  src={project.thumbnail} 
+                  alt={project.name}
+                  fill
+                  className='object-cover group-hover:scale-105 transition-transform duration-500'
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className='absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
+              </div>
+              <div className='p-5 space-y-3'>
+                <div>
+                  <h3 className='font-bold text-lg mb-1'>{project.name}</h3>
+                  <p className='text-sm text-muted-foreground'>{project.description}</p>
+                </div>
+                <div className='flex flex-wrap gap-1.5'>
+                  {project.tags.map((tag, j) => (
+                    <Badge key={j} variant="outline" className='text-xs px-2 py-0.5'>{tag}</Badge>
+                  ))}
+                </div>
+                <div className='flex gap-2 pt-1'>
+                  <Button asChild size="sm" variant="default" className='flex-1'>
+                    <Link href={project.link}>
+                      <OpenInNew fontSize='small' className='mr-1' />
+                      Demo
+                    </Link>
+                  </Button>
+                  <Button asChild size="sm" variant="outline" className='flex-1'>
+                    <Link href={project.github}>
+                      <GitHub fontSize='small' className='mr-1' />
+                      Code
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </Wrapper>
+      </div>
     </div>
-    <div className='grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-5'>
-      {list.map((e, i) => (
-        <div className='relative overflow-hidden group' key={i}>
-          <img className='group-hover:scale-110 group-hover:brightness-75 transition-all object-cover object-center' src={e.thumbnail}></img>
-          <div className='group-hover:opacity-100 opacity-0 absolute top-2 left-2 p-1 px-2 rounded-md text-white text-sm bg-[#149ddd] transition-all'>{e.name}</div>
-          <div className='group-hover:opacity-100 opacity-0 absolute bottom-2 left-1/2 -translate-x-1/2 text-white transition-all w-max '>{e.description}</div>
-
-          <div className="flex gap-2 group-hover:opacity-100 opacity-0 absolute bottom-2 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-max">
-            <Link href={e.link} className='w-8 h-8 transition-all content-center rounded-full bg-white hover:bg-primary text-center'>
-              <LinkOutlined />
-            </Link>
-            <Link href={e.github} className='w-8 h-8 transition-all content-center rounded-full bg-white hover:bg-primary text-center'>
-              <GitHub />
-            </Link>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
+  )
 }
 
+// Services Section
 function Services() {
-
   const services = [
     {
-      icon: <MailOutline sx={{ fontSize: 30 }} />,
+      icon: <Palette />,
       name: "Web Design",
-      description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      description: "Creating beautiful, responsive, and user-friendly web interfaces"
     },
     {
-      icon: <MailOutline sx={{ fontSize: 30 }} />,
-      name: "System Design",
-      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      icon: <Code />,
+      name: "Frontend Development",
+      description: "Building interactive UIs with React, Next.js, and modern frameworks"
     },
     {
-      icon: <MailOutline sx={{ fontSize: 30 }} />,
+      icon: <Storage />,
+      name: "Backend Development",
+      description: "Developing scalable APIs and server-side applications"
+    },
+    {
+      icon: <CloudOutlined />,
       name: "Cloud Computing",
-      description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      description: "Deploying and managing applications on cloud platforms"
     },
     {
-      icon: <MailOutline sx={{ fontSize: 30 }} />,
+      icon: <Code />,
       name: "DevOps",
-      description: "Tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      description: "CI/CD pipelines, containerization with Docker"
     },
     {
-      icon: <MailOutline sx={{ fontSize: 30 }} />,
-      name: "Backend",
-      description: "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-    },
-    {
-      icon: <MailOutline sx={{ fontSize: 30 }} />,
-      name: "Frontend",
-      description: "Fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      icon: <Smartphone />,
+      name: "Mobile Responsive",
+      description: "Ensuring perfect display across all devices"
     },
   ]
 
-  return <div className='bg-white text-black px-5 py-16 flex flex-col gap-10'>
-    <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Services</Wrapper>
-    <Wrapper className='text-gray-800'>I offer a wide range of services to meet your needs. Whether you need a new website, a system design, cloud computing solutions, DevOps services, backend development, or frontend development, I have the skills and experience to deliver high-quality results. My goal is to provide innovative and efficient solutions that help you achieve your business objectives.</Wrapper>
+  return (
+    <div className='bg-background relative overflow-hidden'>
+      {/* Animated background blobs */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none opacity-45'>
+        <div className='absolute top-1/4 right-1/3 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '6s', animationDelay: '0.5s' }}></div>
+        <div className='absolute bottom-1/3 left-1/4 w-80 h-80 bg-primary/15 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '8s', animationDelay: '2s' }}></div>
+      </div>
 
-    <Wrapper className='grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-10'>
-      {
-        services.map((e, i) => (
-          <div key={i} className='flex gap-5 group cursor-pointer'>
-            <div className='w-16 h-16 shrink-0 border-2 border-primary group-hover:bg-white group-hover:text-primary text-white rounded-full bg-primary flex justify-center items-center'>{e.icon}</div>
-            <div>
-              <div className='font-bold group-hover:text-primary'>{e.name}</div>
-              <div className='text-sm pt-2'>{e.description}</div>
+      <div className='max-w-5xl mx-auto px-6 py-20 relative z-10'>
+        <Wrapper className='mb-12'>
+          <h2 className='text-3xl font-bold mb-2'>Services</h2>
+          <p className='text-muted-foreground'>What I can do for you</p>
+        </Wrapper>
+
+        <Wrapper className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {services.map((service, i) => (
+            <div key={i} className='group border rounded-lg p-5 hover:shadow-md transition-all bg-card hover:-translate-y-1 duration-300'>
+              <div className='w-12 h-12 rounded-lg bg-primary/5 flex items-center justify-center mb-4 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300'>
+                {service.icon}
+              </div>
+              <h3 className='font-bold mb-2'>{service.name}</h3>
+              <p className='text-sm text-muted-foreground leading-relaxed'>{service.description}</p>
             </div>
-          </div>
-        ))
-      }
-    </Wrapper>
-
-  </div>
-}
-
-function Testimonials() {
-
-  const data = [
-    {
-      name: "Saul Goodman",
-      position: "Ceo & Founder",
-      description: "Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-1.jpg"
-    },
-    {
-      name: "Sara Wilsson",
-      position: "Designer",
-      description: "Aut maiores voluptates amet et quis praesentium qui senda para. Eos ipsa est voluptates. Magnam dolores commodi suscipit.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-2.jpg"
-    },
-    {
-      name: "Jena Karlis",
-      position: "Store Owner",
-      description: "Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-3.jpg"
-    },
-    {
-      name: "Matt Brandon",
-      position: "Freelancer",
-      description: "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-4.jpg"
-    },
-    {
-      name: "John Larson",
-      position: "Entrepreneur",
-      description: "Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-5.jpg"
-    },
-    {
-      name: "Pamela Adam",
-      position: "Teacher",
-      description: "Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-6.jpg"
-    },
-    {
-      name: "Henry Smith",
-      position: "Designer",
-      description: "Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.",
-      image: "https://themewagon.github.io/iPortfolio/assets/img/testimonials/testimonials-7.jpg"
-    },
-  ]
-
-  return <div className='bg-[#f4fafd] text-black px-5 py-16 flex flex-col gap-10'>
-    <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Testimonials</Wrapper>
-    <Wrapper className='text-gray-800'>Here are some testimonials from my clients and colleagues:</Wrapper>
-    <Wrapper className='flex gap-10 overflow-x-auto pb-10'>
-      {data.map((e, i) => (
-        <div key={i} className='flex flex-col shrink-0 gap-2 w-96 items-center'>
-          <div className='text-gray-700 p-5 shadow-lg relative mb-6'>
-            <FormatQuote sx={{ fontSize: 30 }} className='text-primary' style={{ transform: "rotateY(180deg)" }} />
-            {e.description}
-            <FormatQuote sx={{ fontSize: 30 }} className='text-primary' />
-            <div className='border-t-[20px] border-x-[20px] border-t-white border-x-transparent absolute left-1/2 -translate-x-1/2 translate-y-full '></div>
-          </div>
-          <img className='w-24 h-24 rounded-full object-cover' src={e.image} alt=''></img>
-          <div className='font-bold'>{e.name}</div>
-          <div className='text-sm text-gray-500'>{e.position}</div>
-        </div>
-      ))}
-    </Wrapper>
-  </div>
-}
-
-function Contact() {
-  return <div className='bg-white text-black px-5 py-16 flex flex-col gap-10'>
-    <Wrapper className='text-3xl font-bold pb-2 border-b-4 w-max border-b-primary'>Contact</Wrapper>
-    <Wrapper className='text-gray-800'></Wrapper>
-    Feel free to reach out to me for any inquiries or collaborations. I&#39;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision. You can contact me through the following methods:
-    <div className='grid grid-cols-2 max-md:grid-cols-1 gap-10'>
-
-      <Wrapper className='flex flex-col gap-10 p-10 shadow-lg'>
-        <div className='text-2xl font-bold'>Contact Me</div>
-        <div className='flex flex-col gap-5'>
-          <div className='flex gap-5 group'>
-            <div className='w-8 h-8 shrink-0 border-2 border-primary group-hover:bg-white group-hover:text-primary text-white rounded-full bg-primary flex justify-center items-center'>
-              <MailOutline fontSize='small' />
-            </div>
-            <div>
-              <div className='font-bold group-hover:text-primary'>Email</div>
-              <div>pmquy204@gmail.com</div>
-            </div>
-          </div>
-          <div className='flex gap-5 group'>
-            <div className='w-8 h-8 shrink-0 border-2 border-primary group-hover:bg-white group-hover:text-primary text-white rounded-full bg-primary flex justify-center items-center'>
-              <PhoneAndroidOutlined fontSize='small' />
-            </div>
-            <div>
-              <div className='font-bold group-hover:text-primary'>Call me</div>
-              <div>0971621458</div>
-            </div>
-          </div>
-          <div className='flex gap-5 group'>
-            <div className='w-8 h-8 shrink-0 border-2 border-primary group-hover:bg-white group-hover:text-primary text-white rounded-full bg-primary flex justify-center items-center'>
-              <HomeOutlined fontSize='small' />
-            </div>
-            <div>
-              <div className='font-bold group-hover:text-primary'>Address</div>
-              <div>Cau Giay, Ha Noi, Viet Nam</div>
-            </div>
-          </div>
-        </div>
-      </Wrapper>
-
-      <Wrapper className='flex flex-col gap-10 p-10 shadow-lg'>
-        <div className='text-2xl font-bold'>Message Me</div>
-        <div className='flex flex-col gap-5'>
-          <input className='border-2 border-primary p-2 rounded-md' placeholder='Name'></input>
-          <input className='border-2 border-primary p-2 rounded-md' placeholder='Email'></input>
-          <textarea className='border-2 border-primary p-2 rounded-md h-40' placeholder='Message'></textarea>
-          <button className='bg-primary text-white p-2 rounded-md hover:bg-opacity-80'>Send Message</button>
-        </div>
-      </Wrapper>
+          ))}
+        </Wrapper>
+      </div>
     </div>
-  </div>
+  )
 }
 
+// Contact Section
+function Contact() {
+  return (
+    <div className='bg-background relative overflow-hidden'>
+      {/* Subtle animated background */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none opacity-45'>
+        <div className='absolute top-1/3 left-1/3 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '7s' }}></div>
+        <div className='absolute bottom-1/4 right-1/3 w-80 h-80 bg-primary/15 rounded-full blur-3xl animate-pulse' style={{ animationDuration: '9s', animationDelay: '2.5s' }}></div>
+      </div>
+
+      <div className='max-w-5xl mx-auto px-6 py-20 relative z-10'>
+        <Wrapper className='mb-12'>
+          <h2 className='text-3xl font-bold mb-2'>Contact</h2>
+          <p className='text-muted-foreground'>Let&apos;s work together</p>
+        </Wrapper>
+
+        <div className='grid md:grid-cols-2 gap-8'>
+          {/* Contact Info */}
+          <Wrapper>
+            <div className='space-y-4'>
+              {[
+                { icon: <MailOutline />, label: 'Email', value: 'pmquy204@gmail.com' },
+                { icon: <PhoneAndroidOutlined />, label: 'Phone', value: '0971621458' },
+                { icon: <HomeOutlined />, label: 'Address', value: 'Cau Giay, Ha Noi, Vietnam' },
+              ].map((item, i) => (
+                <div key={i} className='flex gap-3 p-4 border rounded-lg hover:shadow-md transition-all bg-card hover:-translate-y-0.5 duration-300'>
+                  <div className='w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary shrink-0'>
+                    {item.icon}
+                  </div>
+                  <div>
+                    <p className='font-medium text-sm mb-0.5'>{item.label}</p>
+                    <p className='text-sm text-muted-foreground'>{item.value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Wrapper>
+
+          {/* Contact Form */}
+          <Wrapper>
+            <div className='border rounded-lg p-6 bg-card shadow-sm'>
+              <h3 className='font-bold text-lg mb-4'>Send Message</h3>
+              <form className='space-y-4'>
+                <input 
+                  className='w-full px-4 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all' 
+                  placeholder='Your Name'
+                />
+                <input 
+                  className='w-full px-4 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all' 
+                  placeholder='Your Email'
+                  type='email'
+                />
+                <textarea 
+                  className='w-full px-4 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none transition-all' 
+                  placeholder='Your Message'
+                  rows={5}
+                />
+                <Button className='w-full hover:shadow-md transition-shadow'>
+                  <MailOutline className='mr-2' fontSize='small' />
+                  Send Message
+                </Button>
+              </form>
+            </div>
+          </Wrapper>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Navigation Bar
 function NavBar() {
   const [open, setOpen] = useState(false)
-  return <div>
-    <div className={`fixed top-2 right-2 max-xl:block hidden p-2 rounded-full bg-primary cursor-pointer z-10`}>
-      {open ? <CloseOutlined onClick={() => setOpen(false)} /> : <MenuOutlined onClick={() => setOpen(true)} />}
-    </div>
-    <div className={`max-xl:fixed sticky h-screen ${open ? "max-xl:translate-x-0" : "max-xl:-translate-x-full"} max-xl:transition-all z-10 bg-background top-0`}>
-      <div className={`p-5 max-w-[300px] flex flex-col gap-8 overflow-y-auto h-screen`}>
-        <img src="https://themewagon.github.io/iPortfolio/assets/img/my-profile-img.jpg" className="h-28 w-28 rounded-full border-8 border-gray-800 self-center"></img>
-        <div className="text-center font-bold text-2xl">Pham Minh Quy</div>
-        <div className="flex gap-3 justify-center">
-          <div className='icon'>
-            <X fontSize="small" />
+  
+  const navItems = [
+    { href: '#home', icon: <HomeOutlined fontSize='small' />, label: 'Home' },
+    { href: '#about', icon: <Person2Outlined fontSize='small' />, label: 'About' },
+    { href: '#resume', icon: <FeedOutlined fontSize='small' />, label: 'Resume' },
+    { href: '#portfolio', icon: <PhotoLibraryOutlined fontSize='small' />, label: 'Portfolio' },
+    { href: '#services', icon: <ListOutlined fontSize='small' />, label: 'Services' },
+    { href: '#contact', icon: <MailOutline fontSize='small' />, label: 'Contact' },
+  ]
+
+  return (
+    <>
+      {/* Mobile Menu Button */}
+      <div className='fixed top-4 right-4 xl:hidden z-50'>
+        <Button
+          size="icon"
+          variant="default"
+          onClick={() => setOpen(!open)}
+          className='shadow-md'
+        >
+          {open ? <CloseOutlined /> : <MenuOutlined />}
+        </Button>
+      </div>
+
+      {/* Backdrop for mobile */}
+      {open && (
+        <div 
+          className='fixed inset-0 bg-black/50 backdrop-blur-sm z-30 xl:hidden'
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <div className={`fixed h-screen ${open ? "translate-x-0" : "-translate-x-full xl:translate-x-0"} transition-transform duration-300 z-40 bg-card border-r w-[260px]`}>
+        <div className='p-6 flex flex-col gap-6 h-full overflow-y-auto'>
+          {/* Profile */}
+          <div className='text-center space-y-3'>
+            <div className='relative h-20 w-20 mx-auto'>
+              <Image 
+                src="https://themewagon.github.io/iPortfolio/assets/img/my-profile-img.jpg" 
+                alt="Profile"
+                fill
+                className="rounded-full border-2 border-primary/20 object-cover"
+                sizes="80px"
+                priority
+              />
+            </div>
+            <h3 className="text-base font-bold">Pham Minh Quy</h3>
           </div>
-          <Link href={'https://www.facebook.com/phamminhquy.204/'} className='icon'>
-            <Facebook fontSize="small" />
-          </Link>
-          <Link href={"https://github.com/pmquy"} className='icon'>
-            <GitHub fontSize="small" />
-          </Link>
-          <div className='icon'>
-            <YouTube fontSize="small" />
+
+          {/* Social Links */}
+          <div className="flex gap-2 justify-center">
+            {[
+              { href: 'https://github.com/pmquy', icon: <GitHub fontSize="small" /> },
+              { href: 'https://www.facebook.com/lokikurri/', icon: <Facebook fontSize="small" /> },
+              { href: '#', icon: <LinkedIn fontSize="small" /> },
+              { href: '#', icon: <YouTube fontSize="small" /> },
+            ].map((social, i) => (
+              <Button key={i} asChild variant="ghost" size="icon" className='h-9 w-9'>
+                <Link href={social.href}>
+                  {social.icon}
+                </Link>
+              </Button>
+            ))}
           </div>
-          <div className='icon'>
-            <LinkedIn fontSize="small" />
-          </div>
-        </div>
-        <div className='flex gap-2 items-center'>
-          <HomeOutlined style={{ color: 'var(--primary)' }} />
-          <Link onClick={() => setOpen(false)} href={'#home'}>Home</Link>
-        </div>
-        <div className='flex gap-2 items-center'>
-          <Person2Outlined style={{ color: 'var(--primary)' }} />
-          <Link onClick={() => setOpen(false)} href={'#about'}>About</Link>
-        </div>
-        <div className='flex gap-2 items-center'>
-          <FeedOutlined style={{ color: 'var(--primary)' }} />
-          <Link onClick={() => setOpen(false)} href={'#resume'}>Resume</Link>
-        </div>
-        <div className='flex gap-2 items-center'>
-          <PhotoLibraryOutlined style={{ color: 'var(--primary)' }} />
-          <Link onClick={() => setOpen(false)} href={'#portfolio'}>Portfolio</Link>
-        </div>
-        <div className='flex gap-2 items-center'>
-          <ListOutlined style={{ color: 'var(--primary)' }} />
-          <Link onClick={() => setOpen(false)} href={'#services'}>Services</Link>
-        </div>
-        <div className='flex gap-2 items-center'>
-          <SentimentSatisfiedOutlined style={{ color: 'var(--primary)' }} />
-          <Link onClick={() => setOpen(false)} href={'#testimonials'}>Testimonials</Link>
-        </div>
-        <div className='flex gap-2 items-center'>
-          <MailOutline style={{ color: 'var(--primary)' }} />
-          <Link onClick={() => setOpen(false)} href={'#contact'}>Contact</Link>
+
+          <Separator />
+
+          {/* Navigation */}
+          <nav className='flex-1 space-y-1'>
+            {navItems.map((item, i) => (
+              <Button
+                key={i}
+                asChild
+                variant="ghost"
+                className='w-full justify-start text-sm'
+                onClick={() => setOpen(false)}
+              >
+                <Link href={item.href}>
+                  {item.icon}
+                  <span className='ml-2'>{item.label}</span>
+                </Link>
+              </Button>
+            ))}
+          </nav>
         </div>
       </div>
-    </div>
-  </div>
+    </>
+  )
 }
 
+// Main Page Component
 export default function Page() {
-
-  return <div className="flex">
-
-    <NavBar />
-
-    <div className="w-full overflow-hidden">
-      <div id='home'>
-        <Home />
-      </div>
-      <div id='about'>
-        <About />
-      </div>
-      <div id='resume'>
-        <Resume />
-      </div>
-      <div id='portfolio'>
-        <Portfolio />
-      </div>
-      <div id='services'>
-        <Services />
-      </div>
-      <div id='testimonials'>
-        <Testimonials />
-      </div>
-      <div id='contact'>
-        <Contact />
+  return (
+    <div className="flex">
+      <NavBar />
+      <div className="flex-1 xl:ml-[260px]">
+        <section id='home'><Home /></section>
+        <section id='about'><About /></section>
+        <section id='resume'><Resume /></section>
+        <section id='portfolio'><Portfolio /></section>
+        <section id='services'><Services /></section>
+        <section id='contact'><Contact /></section>
       </div>
     </div>
-  </div>
+  )
 }
